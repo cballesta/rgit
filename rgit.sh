@@ -9,15 +9,15 @@ fi
 GREEN='\033[32m'
 NC='\033[0m'
 
-for d in $(find ./ -mindepth 1 -maxdepth 1 -type d); do
-  if ! [[ "$d" =~ ^\./\..* ]]; then
-    echo -e "git "$CMD" on "${GREEN}$d${NC}
-    cd $d
+ORIGIN_PATH=$(pwd)
+
+for d in $(find . -type d -name .git); do
+    cd $d/..
+    CURPATH=$(pwd)
+    echo -e "git "$CMD" on "${GREEN}$CURPATH${NC}
     git $CMD
-    cd ..
-  fi
+    cd $ORIGIN_PATH
 done
 
 exit 0
-
 
