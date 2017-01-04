@@ -1,21 +1,29 @@
 #!/bin/bash
-
-CMD=$@
-
-if [ $# -eq 0 ]; then
-  CMD='status'
-fi
-
+WHITESPACE="[[:space:]]"
 GREEN='\033[32m'
 NC='\033[0m'
+CMD='git '
+
+if [ $# -eq 0 ]; then
+  CMD=$CMD'status '
+else
+  for arg in "$@"
+  do
+      if [[ $arg =~ $WHITESPACE ]]
+      then
+        arg=\"$arg\"
+      fi
+      CMD=$CMD$arg" "
+  done
+fi
 
 ORIGIN_PATH=$(pwd)
 
 for d in $(find . -type d -name .git); do
     cd $d/..
     CURPATH=$(pwd)
-    echo -e "git "$CMD" on "${GREEN}$CURPATH${NC}
-    git $CMD
+    echo -e $CMD"on "${GREEN}$CURPATH${NC}
+    bash -c "$CMD"
     cd $ORIGIN_PATH
 done
 
