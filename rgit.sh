@@ -19,7 +19,7 @@ fi
 
 ORIGIN_PATH=$(pwd)
 
-for d in $(find . -type d -name .git); do
+for d in $(find . -type d -not \( -path "*/node_modules/*" -prune \) -name .git); do
     cd $d/..
     CURPATH=$(pwd)
     echo -e $CMD"on "${GREEN}$CURPATH${NC}
