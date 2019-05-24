@@ -25,7 +25,7 @@ ORIGIN_PATH=$(pwd)
 for d in $(find . -type d -not \( -path "*/node_modules/*" -prune \) -name .git); do
     cd $d/..
     CURPATH=$(pwd)
-    echo -e "${BOLD}${CYAN}$CMD${NC} on ${GREEN}$CURPATH${NC}"
+    echo -e "${BOLD}${CYAN}$CMD${NC}on ${GREEN}$CURPATH${NC}"
     bash -c "$CMD"
     cd $ORIGIN_PATH
 done
